@@ -11,7 +11,6 @@ import scheduler
 import reports
 import handlers
 
-# Loglama ayarları
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     level=logging.INFO,
@@ -31,7 +30,7 @@ async def start_fixed_shifts(context):
 
 
 async def post_init(application):
-    """Bot başlarken veritabanını kurar ve zamanlayıcıları (job) ayarlar."""
+    """Bot başlarken veritabanını kurar ve zamanlayıcıları ayarlar."""
     database.init_db()
 
     # Bot komutlarını Telegram'a tanıt
@@ -80,13 +79,11 @@ def main():
         .build()
     )
 
-    # Komutları ve mesaj dinleyicilerini ekle
     handlers.register_handlers(application)
     application.add_error_handler(error_handler)
 
     logger.info("Bot başlatılıyor...")
 
-    # Botu çalıştır (mesajları ve buton tıklamalarını dinle)
     application.run_polling(
         allowed_updates=["message", "callback_query"]
     )
